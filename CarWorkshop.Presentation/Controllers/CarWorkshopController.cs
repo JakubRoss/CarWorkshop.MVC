@@ -7,15 +7,21 @@ namespace CarWorkshop.Presentation.Controllers
     {
         private ICarworkshopService _carworkshopService;
 
-        public CarWorkshopController(ICarworkshopService carworkshopService) 
+        public CarWorkshopController(ICarworkshopService carworkshopService)
         {
             _carworkshopService = carworkshopService;
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(Domain.Entities.CarWorkshop carWorkshop)
         {
             await _carworkshopService.Create(carWorkshop);
-            return Ok();
+            return RedirectToAction(nameof(Create));
         }
     }
 }
