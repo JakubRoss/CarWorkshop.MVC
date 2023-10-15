@@ -6,7 +6,7 @@ namespace CarWorkshop.Infrastructure.Persistence
     {
         public CarWorkshopDbContext(DbContextOptions<CarWorkshopDbContext> options) : base(options) { }
 
-        DbSet<CarWorkshop.Domain.Entities.CarWorkshop> carWorkshops {  get; set; } 
+        public DbSet<CarWorkshop.Domain.Entities.CarWorkshop> carWorkshops {  get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
