@@ -13,6 +13,11 @@ namespace CarWorkshop.Presentation.Controllers
             _carworkshopService = carworkshopService;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var carWorkshops = await _carworkshopService.GetAll();
+            return View(carWorkshops);;
+        }
         public IActionResult Create()
         {
             return View();
@@ -26,7 +31,7 @@ namespace CarWorkshop.Presentation.Controllers
                 return View();
             }
             await _carworkshopService.Create(carWorkshop);
-            return RedirectToAction(nameof(Create));
+            return RedirectToAction(nameof(Index));
         }
     }
 }
