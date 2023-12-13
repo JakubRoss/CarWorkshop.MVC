@@ -1,11 +1,11 @@
 ﻿using CarWorkshop.Domain.Interfaces;
 using FluentValidation;
 
-namespace CarWorkshop.Application.CarWorkshop
+namespace CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop
 {
-    public class CarWorkshopDtoValidator : AbstractValidator<CarWorkshopDto>
+    public class CreateCarWorkshopCommandValidator : AbstractValidator<CreateCarWorkshopCommand>
     {
-        public CarWorkshopDtoValidator(ICarworkshopRepository repository) 
+        public CreateCarWorkshopCommandValidator(ICarworkshopRepository repository)
         {
             RuleFor(n => n.Name)
                 .NotEmpty()
