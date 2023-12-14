@@ -1,5 +1,6 @@
 ﻿using CarWorkshop.Application.CarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop;
+using CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,16 @@ namespace CarWorkshop.Presentation.Controllers
         {
             return View();
         }
-
+        [Route("CarWorkshop/{encodedName}/Details")]
+        public async Task<IActionResult> Details(string encodedName)
+        {
+            var carWorkshop = await _mediator.Send(new CarWorkshopDetailsQuery(encodedName));
+            if (carWorkshop == null)
+            {
+                return View();
+            }
+            return View(carWorkshop);
+        }
         [HttpPost]
         public async Task<IActionResult> Create(CreateCarWorkshopCommand command)
         {
