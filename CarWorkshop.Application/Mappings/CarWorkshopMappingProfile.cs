@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarWorkshop.Application.CarWorkshop;
+using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Domain.Entities;
 
 namespace CarWorkshop.Application.Mappings
@@ -8,14 +9,15 @@ namespace CarWorkshop.Application.Mappings
     {
         public CarWorkshopMappingProfile()
         {
-            CreateMap<CarWorkshopDto, Domain.Entities.CarWorkshop>()
-                .ForMember(c=>c.ContactDetails, opt=>opt.MapFrom(src=> new CarWorkshopContactDetails
-                {
-                    City = src.City,
-                    PhoneNumber = src.PhoneNumber,
-                    Street = src.Street,
-                    PostalCode  = src.PostalCode
-                })).ReverseMap();
+            CreateMap<Domain.Entities.CarWorkshop, CarWorkshopDto>()
+                .ForMember(c=>c.City, opt => opt.MapFrom(src => src.ContactDetails.City))
+                .ForMember(c => c.PhoneNumber, opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber))
+                .ForMember(c => c.Street, opt => opt.MapFrom(src => src.ContactDetails.Street))
+                .ForMember(c => c.PostalCode, opt => opt.MapFrom(src => src.ContactDetails.PostalCode)).ReverseMap();
+
+
+
+            CreateMap<CarWorkshopDto, EditCarworkshopCommnad>().ReverseMap();
         }
     }
 }

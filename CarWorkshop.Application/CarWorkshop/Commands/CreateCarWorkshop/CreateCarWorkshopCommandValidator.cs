@@ -13,7 +13,7 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop
                 .MaximumLength(20)
                 .Custom((value, context) =>
                 {
-                    var existingCarWorkshop = repository.GetByName(value);
+                    var existingCarWorkshop = repository.GetByName(value).Result;
                     if (existingCarWorkshop != null)
                     {
                         context.AddFailure(value, "CarWorkshop with this name already exist");
@@ -27,5 +27,6 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop
                 .MinimumLength(8)
                 .MaximumLength(12);
         }
+
     }
 }

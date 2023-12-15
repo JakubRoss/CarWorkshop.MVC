@@ -1,4 +1,6 @@
-﻿namespace CarWorkshop.Domain.Interfaces
+﻿using CarWorkshop.Domain.Entities;
+
+namespace CarWorkshop.Domain.Interfaces
 {
     public interface ICarworkshopRepository
     {
@@ -6,5 +8,6 @@
         Task<Entities.CarWorkshop?> GetByName(string name);
         Task<IEnumerable<Entities.CarWorkshop>> GetCarWorkShops();
         Task<Entities.CarWorkshop?> GetCarworkshopByencodedName(string name);
+        Task Commit();
     }
 }
