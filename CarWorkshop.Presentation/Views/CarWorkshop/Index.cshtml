@@ -1,7 +1,11 @@
-﻿@model IEnumerable<CarWorkshop.Application.CarWorkshop.CarWorkshopDto>
+﻿@using System.Security.Claims
+@model IEnumerable<CarWorkshop.Application.CarWorkshop.CarWorkshopDto>
 
 @{
     ViewData["Title"] = "CarWorkshops";
+
+    var isAuthenticated = User.Identity.IsAuthenticated;
+
 }
 
 <h1>CarWorkshops</h1>
@@ -18,7 +22,13 @@
                 <h6 class="card-subtitle mb-2 text-muted">@item.PhoneNumber</h6>
                 <p class="card-text">@item.Description</p>
                 <a class="btn btn-outline-primary" asp-controller="CarWorkshop" asp-action="Details" asp-route-encodedName="@item.EncodedName">Details</a>
-                <a class="btn btn-outline-warning" asp-controller="CarWorkshop" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
+                @{
+                    if (isAuthenticated && User.Claims.First(t => t.Type == ClaimTypes.NameIdentifier).Value == item.CreatedById)
+                    {
+                        <a class="btn btn-outline-warning" asp-controller="CarWorkshop" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
+                    }
+
+                }
             </div>
         </div>
     }

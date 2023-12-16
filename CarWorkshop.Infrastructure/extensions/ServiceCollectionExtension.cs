@@ -15,8 +15,10 @@ namespace CarWorkshop.Infrastructure.extensions
         {
             services.AddDbContext<CarWorkshopDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CarWorkshopDbConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<CarWorkshopDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => {
+                options.Stores.MaxLengthForKeys = 450;              //eliminuje próbę skracania kluczy i dodawania do migracji zmian niepowiązanych
+            })
+            .AddEntityFrameworkStores<CarWorkshopDbContext>();
 
             services.AddScoped<SeedData>();
 

@@ -4,6 +4,7 @@ using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarWorkshop.Presentation.Controllers
@@ -59,13 +60,14 @@ namespace CarWorkshop.Presentation.Controllers
             await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateCarWorkshopCommand command)
         {
             if(!ModelState.IsValid)

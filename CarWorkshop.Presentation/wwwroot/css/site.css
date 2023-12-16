@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar-nav {
+    justify-content: center;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 15px; /* Dodaj odst?p mi?dzy elementami li, je?li to konieczne */
+}
