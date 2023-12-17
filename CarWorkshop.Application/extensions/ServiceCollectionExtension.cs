@@ -1,4 +1,5 @@
-﻿using CarWorkshop.Application.ApplicationUser;
+﻿using AutoMapper;
+using CarWorkshop.Application.ApplicationUser;
 using CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop;
 using CarWorkshop.Application.Mappings;
 using FluentValidation;
@@ -12,7 +13,14 @@ namespace CarWorkshop.Infrastructure.extensions
         public static void AddAplication(this IServiceCollection services)
         {
             services.AddScoped<IUserContext, UserContext>();
-            services.AddAutoMapper(typeof(CarWorkshopMappingProfile));
+            //services.AddAutoMapper(typeof(CarWorkshopMappingProfile));
+            services.AddSingleton(provider => new MapperConfiguration(cfg =>
+            {
+                var scope = provider.CreateScope();
+                var userContext = scope.ServiceProvider.GetRequiredService<IUserContext>();
+                cfg.AddProfile(new CarWorkshopMappingProfile(userContext));
+            }).CreateMapper());
+
             services.AddValidatorsFromAssemblyContaining<CreateCarWorkshopCommandValidator>()   //nie potrzeba za kazdym razem rejestrowac validatorow - wystarczy w parametrze generycznym dodac tylko jeden dowonlny validator, reszta zostanie dodana automatycznie
                 .AddFluentValidationAutoValidation()                //domyslna walidacja z frameworka ASP.NEt zostanie zastapiona walidacja z fluentValidation
                 .AddFluentValidationClientsideAdapters();           //dodanie regul walidacji po stronie frontendu - client side

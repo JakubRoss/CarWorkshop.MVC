@@ -41,9 +41,9 @@ namespace CarWorkshop.Presentation.Controllers
         public async Task<IActionResult> Edit(string encodedName)
         {
             var carWorkshop = await _mediator.Send(new CarWorkshopDetailsQuery(encodedName));
-            if (carWorkshop == null)
+            if (carWorkshop == null || !carWorkshop.IsEditable)
             {
-                return View();
+                return RedirectToAction("index");
             }
             var dto = mapper.Map<EditCarworkshopCommnad>(carWorkshop);
             return View(dto);

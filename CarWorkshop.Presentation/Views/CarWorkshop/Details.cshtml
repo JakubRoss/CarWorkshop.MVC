@@ -3,8 +3,6 @@
 
 @{
     ViewData["Title"] = "Details";
-
-    var isAuthenticated = User.Identity.IsAuthenticated;
 }
 
 <h1>@Model.Name Details</h1>
@@ -58,7 +56,7 @@
 </div>
 <div>
     @{
-        if (isAuthenticated && User.Claims.First(t=>t.Type == ClaimTypes.NameIdentifier).Value == Model.CreatedById)
+        if (Model.IsEditable)
         {
             <a class="btn btn-outline-warning m-2" asp-controller="CarWorkshop" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
         }

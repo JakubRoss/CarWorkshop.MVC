@@ -12,12 +12,12 @@ namespace CarWorkshop.Application.ApplicationUser
 
         public IHttpContextAccessor HttpContextAccessor { get; }
 
-        public CurrentUser GetCurrentUser()
+        public CurrentUser? GetCurrentUser()
         {
-            var user = HttpContextAccessor?.HttpContext?.User;
-            if (user == null)
+            var user = HttpContextAccessor!.HttpContext!.User;   
+            if (user.Identity == null || !user.Identity.IsAuthenticated)
             {
-                return new CurrentUser("0", "0");
+                return null;
             }
 
             //Ostrzeżenie o potencjalnym null znika, ponieważ używasz operatora !

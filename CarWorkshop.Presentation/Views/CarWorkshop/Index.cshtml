@@ -4,8 +4,6 @@
 @{
     ViewData["Title"] = "CarWorkshops";
 
-    var isAuthenticated = User.Identity.IsAuthenticated;
-
 }
 
 <h1>CarWorkshops</h1>
@@ -23,7 +21,7 @@
                 <p class="card-text">@item.Description</p>
                 <a class="btn btn-outline-primary" asp-controller="CarWorkshop" asp-action="Details" asp-route-encodedName="@item.EncodedName">Details</a>
                 @{
-                    if (isAuthenticated && User.Claims.First(t => t.Type == ClaimTypes.NameIdentifier).Value == item.CreatedById)
+                    if (item.IsEditable)
                     {
                         <a class="btn btn-outline-warning" asp-controller="CarWorkshop" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
                     }
