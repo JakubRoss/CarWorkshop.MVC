@@ -13,7 +13,7 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop
                 .MaximumLength(20)
                 .Custom((value, context) =>
                 {
-                    var existingCarWorkshop = repository.GetByName(value).Result;
+                    var existingCarWorkshop = repository.GetByNameAsync(value).Result;
                     if (existingCarWorkshop != null)
                     {
                         context.AddFailure(value, "CarWorkshop with this name already exist");

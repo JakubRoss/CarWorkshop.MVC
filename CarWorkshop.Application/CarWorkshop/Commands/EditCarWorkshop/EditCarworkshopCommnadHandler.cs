@@ -20,7 +20,7 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop
 
         public async Task Handle(EditCarworkshopCommnad request, CancellationToken cancellationToken)
         {
-            var carworkshop = await CarworkshopRepository.GetCarworkshopByencodedName(request.EncodedName == null ? "default" : request.EncodedName);
+            var carworkshop = await CarworkshopRepository.GetCarworkshopByEncodedNameAsync(request.EncodedName == null ? "default" : request.EncodedName);
 
             if(carworkshop == null || carworkshop.CreatedById != UserContext.GetCurrentUser().Id)
             {
@@ -34,7 +34,7 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop
                 carworkshop.ContactDetails.PostalCode = request.PostalCode;
 
 
-            await CarworkshopRepository.Commit();
+            await CarworkshopRepository.CommitAsync();
         }
     }
 }

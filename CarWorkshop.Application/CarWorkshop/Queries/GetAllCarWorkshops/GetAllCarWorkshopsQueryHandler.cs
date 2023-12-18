@@ -17,7 +17,7 @@ namespace CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops
 
         async Task<IEnumerable<CarWorkshopDto>> IRequestHandler<GetAllCarWorkshopsQuery, IEnumerable<CarWorkshopDto>>.Handle(GetAllCarWorkshopsQuery request, CancellationToken cancellationToken)
         {
-            var carWorkShops = await _carworkshopRepository.GetCarWorkShops();
+            var carWorkShops = await _carworkshopRepository.GetCarWorkShopsAsync();
             return _mapper.Map<IEnumerable<CarWorkshopDto>>(carWorkShops);
         }
     }

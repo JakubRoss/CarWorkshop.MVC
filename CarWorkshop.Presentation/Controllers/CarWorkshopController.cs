@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CarWorkshop.Application.CarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop;
+using CarWorkshop.Application.CarWorkshop.Commands.DeleteCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
@@ -60,6 +62,20 @@ namespace CarWorkshop.Presentation.Controllers
             await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        [Route("CarWorkshop/{encodedName}/Delete")]
+        public async Task<IActionResult> Delete(string encodedName, CarWorkshopDto dto)
+        {
+            var command = mapper.Map<DeleteCarWorkshopCommand>(dto);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Details));
+            }
+            await _mediator.Send(command);
+            return RedirectToAction(nameof(Index));
+        }
+
         [Authorize]
         public IActionResult Create()
         {

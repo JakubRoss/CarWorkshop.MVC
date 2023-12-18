@@ -17,7 +17,7 @@ namespace CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails
 
         public async Task<CarWorkshopDto> Handle(CarWorkshopDetailsQuery request, CancellationToken cancellationToken)
         {
-            var carWorkshop = await CarworkshopRepository.GetCarworkshopByencodedName(request.encodedName);
+            var carWorkshop = await CarworkshopRepository.GetCarworkshopByEncodedNameAsync(request.encodedName);
             var carWorkshopDto = Mapper.Map<CarWorkshopDto>(carWorkshop);
             return carWorkshopDto;
         }
