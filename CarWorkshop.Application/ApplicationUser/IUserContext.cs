@@ -6,6 +6,9 @@ namespace CarWorkshop.Application.ApplicationUser
     {
         IHttpContextAccessor HttpContextAccessor { get; }
 
-        CurrentUser GetCurrentUser();
+        CurrentUser? GetCurrentUser();
+        IEnumerable<string>? GetUserRoles();
+
+        bool IsInRole(string roleName);
     }
 }
