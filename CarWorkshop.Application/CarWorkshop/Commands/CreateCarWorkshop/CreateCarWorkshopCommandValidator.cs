@@ -8,20 +8,21 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.CreateCarWorkshop
         public CreateCarWorkshopCommandValidator(ICarworkshopRepository repository)
         {
             RuleFor(n => n.Name)
-                .NotEmpty()
-                .MinimumLength(4)
+                .NotEmpty().WithMessage("Nazwa wymagana")
+                .MinimumLength(4).WithMessage("Nazwa musi sie skladac z conajmniej 4 znakow")
                 .MaximumLength(20)
                 .Custom((value, context) =>
                 {
                     var existingCarWorkshop = repository.GetByNameAsync(value).Result;
                     if (existingCarWorkshop != null)
                     {
-                        context.AddFailure(value, "CarWorkshop with this name already exist");
+                        context.AddFailure("CarWorkshop z ta nazwa juz istnieje");
                     }
                 });
 
             RuleFor(n => n.Description)
-                .NotEmpty().WithMessage("Please enter decription");
+                .MinimumLength(5).WithMessage("Opis musi sie skladac co najmniej z 5 znakow")
+                .NotEmpty().WithMessage("Opis wymagany");
 
             RuleFor(n => n.PhoneNumber)
                 .MinimumLength(8)

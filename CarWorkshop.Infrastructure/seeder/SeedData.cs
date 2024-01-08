@@ -1,6 +1,4 @@
 ﻿using CarWorkshop.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CarWorkshop.Infrastructure.seeder
 {

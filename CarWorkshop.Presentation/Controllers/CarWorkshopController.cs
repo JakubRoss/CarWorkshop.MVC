@@ -5,9 +5,11 @@ using CarWorkshop.Application.CarWorkshop.Commands.DeleteCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
+using CarWorkshop.Presentation.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CarWorkshop.Presentation.Controllers
 {
@@ -60,6 +62,9 @@ namespace CarWorkshop.Presentation.Controllers
                 return View(command);
             }
             await _mediator.Send(command);
+
+            this.SetNotification("info", $"Carworkshop: {command.Name} zostal poprawnie zmieniony");
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -73,6 +78,9 @@ namespace CarWorkshop.Presentation.Controllers
                 return RedirectToAction(nameof(Details));
             }
             await _mediator.Send(command);
+
+            this.SetNotification("info", $"Carworkshop: {dto.Name} zostal usuniety");
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -88,9 +96,22 @@ namespace CarWorkshop.Presentation.Controllers
         {
             if(!ModelState.IsValid)
             {
+                var fieldName = string.Empty;
+                foreach (var entry in ModelState)
+                {
+                    if (entry.Value.ValidationState == ModelValidationState.Invalid)
+                    {
+                        fieldName = entry.Key;
+                    }
+                }
+
+                this.SetNotification("error", $"Niepoprawna walidacja dla pola  {fieldName}");
                 return View(command);
             }
             await _mediator.Send(command);
+
+            this.SetNotification("success", $"Pomyslnie stworzono Carworkshop: {command.Name}");
+
             return RedirectToAction(nameof(Index));
         }
     }
