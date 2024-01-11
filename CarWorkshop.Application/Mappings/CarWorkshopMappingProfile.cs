@@ -3,6 +3,7 @@ using CarWorkshop.Application.ApplicationUser;
 using CarWorkshop.Application.CarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.DeleteCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
+using CarWorkshop.Application.CarWorkshopService;
 
 namespace CarWorkshop.Application.Mappings
 {
@@ -19,6 +20,7 @@ namespace CarWorkshop.Application.Mappings
 
             CreateMap<CarWorkshopDto, EditCarworkshopCommnad>().ReverseMap();
             CreateMap<CarWorkshopDto,DeleteCarWorkshopCommand>().ReverseMap();
+            CreateMap<Domain.Entities.CarWorkshopService, CarWorkshopServiceDto>().ReverseMap();
         }
     }
 }

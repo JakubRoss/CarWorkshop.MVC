@@ -19,5 +19,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.11" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\CarworkshopService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\Carworkshop\Edit.js" />
+  </ItemGroup>
   
 </Project>

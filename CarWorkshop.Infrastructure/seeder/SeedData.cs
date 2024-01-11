@@ -1,4 +1,5 @@
-﻿using CarWorkshop.Infrastructure.Persistence;
+﻿using CarWorkshop.Domain.Entities;
+using CarWorkshop.Infrastructure.Persistence;
 
 namespace CarWorkshop.Infrastructure.seeder
 {
@@ -24,12 +25,25 @@ namespace CarWorkshop.Infrastructure.seeder
             {
                 Name = "Mitschubishi ASO",
                 Description = "Autoryzowany serwis ASO",
-                ContactDetails = new Domain.Entities.CarWorkshopContactDetails
+                ContactDetails = new CarWorkshopContactDetails
                 {
                     City = "Gdansk",
-                    Street = "Chłopska X",
-                    PhoneNumber = "666 666 666",
+                    Street = "Chłopska 14",
+                    PhoneNumber = "896 429 984",
                     PostalCode = "80-358"
+                },
+                Services = new List<CarWorkshopService>()
+                {
+                    new CarWorkshopService()
+                    {
+                        Description = "Wymiana Opon",
+                        Price = "140PLN"
+                    },
+                    new CarWorkshopService()
+                    {
+                        Description = "Wymiana Oleju",
+                        Price = "420PLN"
+                    }
                 }
             };
             entity.EncodeName();

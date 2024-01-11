@@ -5,6 +5,7 @@ using CarWorkshop.Application.CarWorkshop.Commands.DeleteCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
+using CarWorkshop.Application.CarWorkshopService.Command;
 using CarWorkshop.Presentation.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -113,6 +114,23 @@ namespace CarWorkshop.Presentation.Controllers
             this.SetNotification("success", $"Pomyslnie stworzono Carworkshop: {command.Name}");
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [Route("CarWorkshop/CarWorkshopService")]
+        public async Task<IActionResult> CreateCarWorkshopService(CreateCarWorkshopServiceCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var entry in ModelState)
+                {
+                    if(entry.Value.ValidationState == ModelValidationState.Invalid)
+                    {
+                        return BadRequest(entry.Key);
+                    }
+                }
+            }
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

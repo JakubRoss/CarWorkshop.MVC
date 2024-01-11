@@ -22,7 +22,7 @@ namespace CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop
         {
             var carworkshop = await CarworkshopRepository.GetCarworkshopByEncodedNameAsync(request.EncodedName == null ? "default" : request.EncodedName);
 
-            if(carworkshop == null || carworkshop.CreatedById != UserContext.GetCurrentUser().Id)
+            if(carworkshop == null || carworkshop.CreatedById != UserContext.GetCurrentUser()!.Id)
             {
                 return;
             }

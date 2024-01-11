@@ -1,4 +1,5 @@
-﻿@model CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop.EditCarworkshopCommnad
+﻿@using CarWorkshop.Application.CarWorkshopService.Command
+@model CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop.EditCarworkshopCommnad
 
 @{
     ViewData["Title"] = "Edit";
@@ -48,16 +49,18 @@
             </div>
             <p></p>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-outline-primary m-2" />
+                <input type="submit" value="Save" class="btn btn-outline-success m-2" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a class="btn btn-outline-success m-2" asp-action="Index">Back to List</a>
+    <partial name="_CreateCarWorkshopService" model="new CreateCarWorkshopServiceCommand(){CarWorkshopEncodedName = Model.EncodedName!}"/>
+    <a class="btn btn-outline-danger m-2" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src ="~/js/Carworkshop/Edit.js"></script>
 }

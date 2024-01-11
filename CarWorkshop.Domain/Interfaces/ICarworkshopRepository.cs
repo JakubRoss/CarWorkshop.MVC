@@ -1,6 +1,4 @@
-﻿using CarWorkshop.Domain.Entities;
-
-namespace CarWorkshop.Domain.Interfaces
+﻿namespace CarWorkshop.Domain.Interfaces
 {
     public interface ICarworkshopRepository
     {
