@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\CarworkshopService\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\js\Carworkshop\Edit.js" />
   </ItemGroup>
   
