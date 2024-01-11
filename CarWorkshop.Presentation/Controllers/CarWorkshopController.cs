@@ -6,6 +6,7 @@ using CarWorkshop.Application.CarWorkshop.Commands.EditCarWorkshop;
 using CarWorkshop.Application.CarWorkshop.Queries.CarWorkshopdetails;
 using CarWorkshop.Application.CarWorkshop.Queries.GetAllCarWorkshops;
 using CarWorkshop.Application.CarWorkshopService.Command;
+using CarWorkshop.Application.CarWorkshopService.Queries;
 using CarWorkshop.Presentation.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +29,7 @@ namespace CarWorkshop.Presentation.Controllers
         public async Task<IActionResult> Index()
         {
             var carWorkshops = await _mediator.Send(new GetAllCarWorkshopsQuery());
-            return View(carWorkshops);;
+            return View(carWorkshops); ;
         }
 
         [Route("CarWorkshop/{encodedName}/Details")]
@@ -56,7 +57,7 @@ namespace CarWorkshop.Presentation.Controllers
 
         [HttpPost]
         [Route("CarWorkshop/{encodedName}/Edit")]
-        public async Task<IActionResult> Edit(string encodedName ,EditCarworkshopCommnad command)
+        public async Task<IActionResult> Edit(string encodedName, EditCarworkshopCommnad command)
         {
             if (!ModelState.IsValid)
             {
@@ -95,7 +96,7 @@ namespace CarWorkshop.Presentation.Controllers
         [Authorize]
         public async Task<IActionResult> Create(CreateCarWorkshopCommand command)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var fieldName = string.Empty;
                 foreach (var entry in ModelState)
@@ -116,6 +117,7 @@ namespace CarWorkshop.Presentation.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         [Route("CarWorkshop/CarWorkshopService")]
         public async Task<IActionResult> CreateCarWorkshopService(CreateCarWorkshopServiceCommand command)
         {
@@ -123,7 +125,7 @@ namespace CarWorkshop.Presentation.Controllers
             {
                 foreach (var entry in ModelState)
                 {
-                    if(entry.Value.ValidationState == ModelValidationState.Invalid)
+                    if (entry.Value.ValidationState == ModelValidationState.Invalid)
                     {
                         return BadRequest(entry.Key);
                     }
@@ -131,6 +133,14 @@ namespace CarWorkshop.Presentation.Controllers
             }
             await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("CarWorkshop/{encodedName}/CarWorkshopService")]
+        public async Task<IActionResult> GetCarWorkshopService(string encodedName)
+        {
+            var data = await _mediator.Send(new GetCarWorkshopServiceQuery() { EncodedName = encodedName });
+            return Ok(data);
         }
     }
 }

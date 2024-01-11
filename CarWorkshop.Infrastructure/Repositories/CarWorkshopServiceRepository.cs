@@ -1,5 +1,6 @@
 ﻿using CarWorkshop.Domain.Entities;
 using CarWorkshop.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarWorkshop.Infrastructure.Repositories
 {
@@ -16,6 +17,12 @@ namespace CarWorkshop.Infrastructure.Repositories
         {
             await DbContext.AddAsync(service);
             await DbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CarWorkshopService>?> GetCarWorkshopServicesAsync(string encodedName)
+        {
+            var carworkshop = await DbContext.carWorkshops.Include( s => s.Services).FirstOrDefaultAsync(p => p.EncodedName == encodedName);
+            return carworkshop!.Services;
         }
     }
 }
