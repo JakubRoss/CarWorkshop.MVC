@@ -10,12 +10,12 @@ namespace CarWorkshop.Application.ApplicationUser
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public IHttpContextAccessor HttpContextAccessor { get; }
+        private IHttpContextAccessor HttpContextAccessor { get; }
 
         public CurrentUser? GetCurrentUser()
         {
             var user = HttpContextAccessor.HttpContext!.User;   
-            if (user.Identity == null || !user.Identity.IsAuthenticated)
+            if (!user.Identity!.IsAuthenticated)
             {
                 return null;
             }
@@ -31,7 +31,7 @@ namespace CarWorkshop.Application.ApplicationUser
         public IEnumerable<string>? GetUserRoles()
         {
             var user = HttpContextAccessor.HttpContext!.User;
-            if (user.Identity == null || !user.Identity.IsAuthenticated)
+            if (!user.Identity!.IsAuthenticated)
             {
                 return null;
             }
@@ -41,7 +41,8 @@ namespace CarWorkshop.Application.ApplicationUser
         public bool IsInRole(string roleName)
         {
             var user = HttpContextAccessor.HttpContext!.User;
-            if (user.Identity == null || !user.Identity.IsAuthenticated)
+            bool isaut = user.Identity!.IsAuthenticated;
+            if (!user.Identity!.IsAuthenticated)
             {
                 return false;
             }
